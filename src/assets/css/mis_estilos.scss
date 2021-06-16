@@ -1,0 +1,33 @@
+.fondo {
+  background-image: url("imagenes/background.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.opacity2 {
+  background-color: rgba(33, 37, 41, 0.7);
+}
+
+.opacity {
+  transition: 0.3s;
+}
+
+.opacity:hover {
+  opacity: .5;
+}
+
+// .portada {
+//   position: relative;
+
+//   &:hover .info {
+//     opacity: 1;
+//     visibility: visible;
+//   }
+// }
+
+// .info {
+//   transition: 0.4s;
+//   position: absolute;
+//   opacity: 0;
+//   }
