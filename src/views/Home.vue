@@ -142,6 +142,13 @@
                 @click="edit(user)"
               ></i
               ><i
+                v-if="!user.state"
+                style="cursor: pointer"
+                class="fas fa-times-circle btn btn-danger"
+                @click="warning()"
+              ></i>
+              <i
+                v-if="user.state"
                 style="cursor: pointer"
                 class="fas fa-times-circle btn btn-danger"
                 @click="remove(user)"
@@ -194,6 +201,14 @@ export default {
           doc.forEach((ele) => this.users.push(ele.data()));
         })
         .catch();
+    },
+    warning() {
+      swal({
+        title: "Invalid action",
+        text: "Cannot remove an active user!",
+        icon: "warning",
+        dangerMode: true,
+      });
     },
     edit(user) {
       swal({
@@ -267,12 +282,13 @@ export default {
             .collection("users")
             .doc(user.id)
             .delete()
-            .then(() => {});
-          swal("Poof! User has been deleted!", {
-            icon: "success",
-          });
-          this.users = [];
-          this.listUsers();
+            .then(() => {
+              this.users = [];
+              this.listUsers();
+              swal("Poof! User has been deleted!", {
+                icon: "success",
+              });
+            });
         } else {
           swal("The operation has been negate");
         }

@@ -86,20 +86,22 @@ export default {
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
-          swal("Poof! Yor account has been deleted!", {
-            icon: "success",
-          });
           firebase
             .firestore()
             .collection("users")
             .doc(id)
             .update({ state: "inactive" })
-            .then(() =>{});
-          firebase
-            .auth()
-            .currentUser.delete()
-            .then(() => {})
-            .catch(() => {});
+            .then(() => {
+              firebase
+                .auth()
+                .currentUser.delete()
+                .then(() => {
+                  swal("Poof! Yor account has been deleted!", {
+                    icon: "success",
+                  });
+                })
+                .catch(() => {});
+            });
         } else {
           swal("The operation has been negate");
         }

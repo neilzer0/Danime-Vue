@@ -13,7 +13,7 @@
           :to="'/edit-profile'"
           class="m-3 pr-2 btn btn-danger"
         >
-          <i class="fas fa-user-edit"></i> Edit Image
+          <i class="fas fa-user-edit"></i> Edit Profile
         </router-link>
       </div>
       <div

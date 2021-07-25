@@ -68,6 +68,24 @@
           allowfullscreen
         ></iframe>
       </div>
+      <div v-if="count" class="p-3 d-flex justify-content-start align-items-center">
+      <a
+        v-if="last != 0"
+        replace
+        :href="'/anime/' + id + '/play/' + last"
+        class="btn btn-dark mr-2"
+      >
+        <i class="fas fa-angle-left mr-1"></i> Previous
+      </a>
+      <a
+        v-if="count+1 != next"
+        replace
+        :href="'/anime/' + id + '/play/' + next"
+        class="btn btn-dark"
+      >
+        Next <i class="fas fa-angle-right ml-1"></i>
+      </a>
+      </div>
 
       <h3 class="p-3 d-flex justify-content-between align-items-center">
         <div><i class="fas fa-comment-dots mr-1"></i>Comments</div>
@@ -162,10 +180,12 @@ export default {
   setup() {
     const route = useRoute();
     const count = ref(0);
+    const next = ref(0);
+    const last = ref(0);
     const link = ref("");
     const isViewed = ref(false);
     const id = ref("");
-    const cap = ref("");
+    const cap = ref(0);
     const anime = ref([]);
     const commentList = ref([]);
     var commentTemp = ref([]);
@@ -238,6 +258,9 @@ export default {
     };
 
     onBeforeMount(() => {
+      // count.value = 0;
+      // last.value = 0;
+      next.value = 0;
       function primerFetch() {
         setTimeout(function () {
           firebase
@@ -297,9 +320,13 @@ export default {
 
       id.value = route.params.id;
       cap.value = route.params.cap;
+      last.value = route.params.cap - 1;
+      next.value = parseInt(route.params.cap) + 1;
     });
 
     return {
+      last,
+      next,
       link,
       id,
       text,
